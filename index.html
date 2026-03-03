@@ -192,6 +192,153 @@ to{opacity:1;transform:translateY(0);}
 
 <body>
 
+<style>
+
+body{
+background:#0b0b0b;
+}
+
+.premium-section{
+padding:120px 8%;
+text-align:center;
+color:white;
+}
+
+.premium-title{
+font-size:3rem;
+font-weight:700;
+background:linear-gradient(45deg,#ff5e14,#ff2e00);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+margin-bottom:70px;
+}
+
+.premium-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+}
+
+.premium-card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+border-radius:25px;
+padding:25px;
+transition:0.5s;
+position:relative;
+overflow:hidden;
+border:1px solid rgba(255,94,20,0.2);
+}
+
+.premium-card:hover{
+transform:translateY(-15px) scale(1.05);
+box-shadow:0 0 40px rgba(255,94,20,0.4);
+}
+
+.premium-card h3{
+color:#ff5e14;
+margin-bottom:10px;
+}
+
+.price-tag{
+font-size:22px;
+font-weight:bold;
+margin-top:15px;
+}
+
+.order-btn{
+margin-top:20px;
+padding:12px 25px;
+border-radius:30px;
+border:none;
+background:linear-gradient(45deg,#ff5e14,#ff2e00);
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+.order-btn:hover{
+transform:scale(1.1);
+}
+
+</style>
+
+
+<section class="premium-section">
+
+<h2 class="premium-title">🍔 Dine Hut Ultra Premium Menu</h2>
+
+
+<div class="premium-grid">
+
+<div class="premium-card">
+<h3>🔥 Regular Pizza Selection</h3>
+<p>
+Chicken Tikka • Fajita • Supreme • Veggie<br>
+Cheese Lover • Peri Peri • BBQ • Black Pepper
+</p>
+<p class="price-tag">
+S 490 | M 950 | L 1250 | XL 1550
+</p>
+<button class="order-btn" onclick="addToCart('Pizza Order')">
+Add To Order
+</button>
+</div>
+
+
+<div class="premium-card">
+<h3>⭐ Specialty Pizzas</h3>
+<p>Splitz’a Pizza (Large) — 1600</p>
+<p>Real American M1450 L1750</p>
+<p>DH Special M1400 L1700</p>
+<button class="order-btn" onclick="addToCart('Special Pizza')">
+Order Now
+</button>
+</div>
+
+
+<div class="premium-card">
+<h3>👑 Premium Crust Series</h3>
+<p>
+Behari Kabab | Kabab Popper | Malai Boti<br>
+Crown Crust | Kabab Stufer
+</p>
+<p class="price-tag">1150 — 1500</p>
+</div>
+
+
+<div class="premium-card">
+<h3>🍔 Burgers</h3>
+<p>
+Zinger • Fillet • Chapli • Pizza Burger<br>
+DH Special • Double Decker
+</p>
+<p class="price-tag">240 — 570</p>
+</div>
+
+
+<div class="premium-card">
+<h3>🍗 Wings & Nuggets</h3>
+<p>
+Oven Baked | Hot Wings | Honey Wings | Peri Peri
+</p>
+<p>5 PCS = 250~280</p>
+<p>10 PCS = 450~540</p>
+</div>
+
+
+<div class="premium-card">
+<h3>💥 Value Deals</h3>
+<p>
+Deal 1 — Zinger + Fries + Drink = 500<br>
+Deal 3 — Med Pizza + Wings + Drink = 1470<br>
+Birthday Deal = 5250
+</p>
+</div>
+
+</div>
+
+</section>
 <header>
 <h1>Dine Hut</h1>
 <nav>
@@ -285,5 +432,6 @@ style="border-radius:15px; border:none;">
 </body>
 
 </html>
+
 
 
