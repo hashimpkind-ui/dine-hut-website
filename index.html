@@ -507,6 +507,89 @@ Send Order On WhatsApp
 
 let cart = [];
 
+function addToCart(name, price){
+
+let qty = document.getElementById(name+"_qty").value;
+let size = document.getElementById(name+"_size")?.value || "";
+let flavor = document.getElementById(name+"_flavor")?.value || "";
+
+let itemName = name;
+
+if(size) itemName += " ("+size+")";
+if(flavor) itemName += " - "+flavor;
+
+cart.push({
+name:itemName,
+price:price,
+qty:Number(qty)
+});
+
+updateCart();
+
+alert("Added to cart ✅");
+
+}
+
+function updateCart(){
+
+let cartDiv = document.getElementById("cartItems");
+if(!cartDiv) return;
+
+cartDiv.innerHTML = "";
+
+let total = 0;
+
+cart.forEach(item=>{
+
+let itemTotal = item.price * item.qty;
+total += itemTotal;
+
+cartDiv.innerHTML += `
+<p>
+${item.name}  
+<br>
+Qty: ${item.qty}  
+<br>
+Rs ${itemTotal}
+</p>
+<hr>
+`;
+
+});
+
+cartDiv.innerHTML += `<h3>Total = Rs ${total}</h3>`;
+
+}
+
+function sendOrder(){
+
+if(cart.length === 0){
+alert("Cart empty!");
+return;
+}
+
+let msg = "Hello Dine Hut Order:%0A";
+let total = 0;
+
+cart.forEach(item=>{
+let itemTotal = item.price * item.qty;
+
+msg += item.name + " x" + item.qty + " = Rs " + itemTotal + "%0A";
+
+total += itemTotal;
+});
+
+msg += "%0ATotal = Rs " + total;
+
+window.open("https://wa.me/923011288361?text="+msg);
+
+}
+
+</script>
+<script>
+
+let cart = [];
+
 /* ADD ANY ITEM TO CART */
 function addToCart(name, price){
 
@@ -686,6 +769,7 @@ function sendOrder(){
 
 </script>
 </html>
+
 
 
 
