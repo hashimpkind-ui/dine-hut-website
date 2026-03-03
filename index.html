@@ -674,22 +674,7 @@ window.open("https://wa.me/923XXXXXXXXX?text="+msg);
 }
 
 </script>
-let cart=[];
 
-function addToCart(item){
-cart.push(item);
-alert(item + " added to order!");
-}
-
-function sendOrder(){
-if(cart.length===0){
-alert("Your order is empty!");
-return;
-}
-let message="Hello Dine Hut, I would like to order:%0A";
-cart.forEach(item=>{message+=item+"%0A";});
-window.open("https://wa.me/923011288361?text="+message);
-}
 </script>
 <section id="location" style="padding:80px 8%; text-align:center;">
 <h2 style="color:#ff5e14; margin-bottom:40px;">Our Location</h2>
@@ -769,6 +754,7 @@ function sendOrder(){
 
 </script>
 </html>
+
 
 
 
