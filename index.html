@@ -472,7 +472,35 @@ cursor:pointer;
 <footer>
 © 2026 Dine Hut. All Rights Reserved.
 </footer>
+<div style="
+position:fixed;
+right:20px;
+bottom:120px;
+background:#111;
+padding:20px;
+border-radius:20px;
+width:250px;
+box-shadow:0 0 30px rgba(255,94,20,0.5);
+">
 
+<h3 style="color:#ff5e14">🛒 Your Cart</h3>
+
+<div id="cartItems"></div>
+
+<button onclick="sendOrder()" style="
+width:100%;
+margin-top:15px;
+padding:10px;
+border:none;
+border-radius:20px;
+background:linear-gradient(45deg,#ff5e14,#ff2e00);
+color:white;
+cursor:pointer;
+">
+Send Order On WhatsApp
+</button>
+
+</div>
 <script>
 let cart=[];
 
@@ -488,7 +516,7 @@ return;
 }
 let message="Hello Dine Hut, I would like to order:%0A";
 cart.forEach(item=>{message+=item+"%0A";});
-window.open("https://wa.me/923XXXXXXXXX?text="+message);
+window.open("https://wa.me/923011288361?text="+message);
 }
 </script>
 <section id="location" style="padding:80px 8%; text-align:center;">
@@ -503,7 +531,73 @@ style="border-radius:15px; border:none;">
 </section>
 </body>
 
+<script>
+
+let cart = [];
+
+/* Add Item To Cart */
+function addToCart(name, price){
+    
+    cart.push({
+        name:name,
+        price:price
+    });
+
+    alert(name + " added to cart ✅");
+
+    updateCartUI();
+}
+
+/* Update Cart Display */
+function updateCartUI(){
+
+    let cartDiv = document.getElementById("cartItems");
+
+    if(!cartDiv) return;
+
+    cartDiv.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach(item=>{
+        total += item.price;
+        cartDiv.innerHTML += `
+            <p>🍔 ${item.name} — Rs ${item.price}</p>
+        `;
+    });
+
+    cartDiv.innerHTML += `
+        <hr>
+        <h3>Total: Rs ${total}</h3>
+    `;
+}
+
+/* Send Order To WhatsApp */
+function sendOrder(){
+
+    if(cart.length === 0){
+        alert("Cart is empty!");
+        return;
+    }
+
+    let msg = "Hello Dine Hut, I want to order:%0A";
+
+    let total = 0;
+
+    cart.forEach(item=>{
+        msg += "• " + item.name + " Rs " + item.price + "%0A";
+        total += item.price;
+    });
+
+    msg += "%0ATotal = Rs " + total;
+
+    window.open("https://wa.me/923XXXXXXXXX?text="+msg);
+
+}
+
+</script>
 </html>
+
 
 
 
