@@ -502,6 +502,95 @@ Send Order On WhatsApp
 
 </div>
 <script>
+    
+<script>
+
+let cart = [];
+
+/* ADD ANY ITEM TO CART */
+function addToCart(name, price){
+
+let existingItem = cart.find(item => item.name === name);
+
+if(existingItem){
+existingItem.qty += 1;
+}
+else{
+cart.push({
+name:name,
+price:price,
+qty:1
+});
+}
+
+updateCartUI();
+
+alert(name + " added to cart ✅");
+
+}
+
+
+/* UPDATE CART DISPLAY */
+function updateCartUI(){
+
+let cartDiv = document.getElementById("cartItems");
+
+if(!cartDiv) return;
+
+cartDiv.innerHTML = "";
+
+let total = 0;
+
+cart.forEach(item =>{
+
+let itemTotal = item.price * item.qty;
+total += itemTotal;
+
+cartDiv.innerHTML += `
+<p>
+🍔 ${item.name}  
+<br>
+Qty: ${item.qty}  
+<br>
+Price: Rs ${itemTotal}
+</p>
+<hr>
+`;
+
+});
+
+cartDiv.innerHTML += `<h3>Total = Rs ${total}</h3>`;
+
+}
+
+
+/* SEND ORDER TO WHATSAPP */
+function sendOrder(){
+
+if(cart.length === 0){
+alert("Cart is empty!");
+return;
+}
+
+let msg = "Hello Dine Hut, I want to order:%0A";
+
+let total = 0;
+
+cart.forEach(item=>{
+let itemTotal = item.price * item.qty;
+
+msg += `• ${item.name} x${item.qty} = Rs ${itemTotal}%0A`;
+
+total += itemTotal;
+});
+
+msg += "%0ATotal Bill = Rs " + total;
+
+window.open("https://wa.me/923XXXXXXXXX?text="+msg);
+
+}
+
+</script>
 let cart=[];
 
 function addToCart(item){
@@ -597,6 +686,7 @@ function sendOrder(){
 
 </script>
 </html>
+
 
 
 
