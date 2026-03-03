@@ -6,7 +6,7 @@
 <title>Dine Hut | Fresh Taste. Fast Service.</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
 --primary:#ff5e14;
@@ -301,173 +301,597 @@ cursor:pointer;
 
 <h1 class="menu-title">🍔 Dine Hut Fast Food Menu</h1>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DH Food Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a1a1a;
+    --card: #242424;
+    --card-hover: #2c2c2c;
+    --accent: #e8630a;
+    --accent2: #ff8c38;
+    --text: #f0f0f0;
+    --muted: #888;
+    --border: #333;
+    --success: #2ecc71;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Nunito', sans-serif; min-height: 100vh; }
 
-<!-- PIZZA -->
-<div class="category">
-<h2>🍕 Pizza Selection</h2>
+  header {
+    background: #111;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--accent);
+    box-shadow: 0 4px 20px rgba(232,99,10,0.15);
+  }
+  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--accent); letter-spacing: 2px; }
+  .cart-btn {
+    background: var(--accent); border: none; color: white;
+    padding: 10px 20px; border-radius: 10px;
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 14px;
+    cursor: pointer; display: flex; align-items: center; gap: 8px;
+    transition: all 0.2s;
+  }
+  .cart-btn:hover { background: var(--accent2); transform: scale(1.03); }
+  .cart-count {
+    background: white; color: var(--accent);
+    border-radius: 50%; width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 900;
+  }
 
-<div class="menu-grid">
+  .menu-area { padding: 24px; }
+  .section { margin-bottom: 36px; }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif; font-size: 24px;
+    color: var(--text); letter-spacing: 2px;
+    margin-bottom: 14px; padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); gap: 12px; }
+  .items-grid-wide { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
 
-<div class="card">
-<h3>Chicken Tikka Pizza</h3>
-<p>Regular Flavor</p>
-<p class="price">S 490 | M 950 | L 1250 | XL 1550</p>
+  .item-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 14px 12px;
+    cursor: pointer; transition: all 0.2s ease;
+    position: relative; overflow: hidden;
+  }
+  .item-card:hover {
+    background: var(--card-hover); border-color: var(--accent);
+    transform: translateY(-3px); box-shadow: 0 8px 22px rgba(232,99,10,0.18);
+  }
+  .item-card .plus-icon {
+    position: absolute; top: 10px; right: 12px;
+    width: 26px; height: 26px; background: var(--accent);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900; color: white;
+    opacity: 0; transition: opacity 0.2s; pointer-events: none;
+  }
+  .item-card:hover .plus-icon { opacity: 1; }
+  .item-name { font-weight: 800; font-size: 14px; color: var(--text); margin-bottom: 4px; padding-right: 24px; }
+  .item-subtitle { font-size: 11px; color: var(--muted); margin-bottom: 8px; line-height: 1.4; }
+  .item-price { color: var(--accent); font-weight: 700; font-size: 13px; }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.78); z-index: 200;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.22s;
+    backdrop-filter: blur(5px);
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+  .modal {
+    background: #1c1c1c; border: 2px solid var(--accent);
+    border-radius: 18px; padding: 26px;
+    width: 340px; max-width: 92vw;
+    transform: scale(0.88) translateY(24px);
+    transition: transform 0.25s ease;
+    box-shadow: 0 20px 60px rgba(232,99,10,0.28);
+  }
+  .modal-overlay.active .modal { transform: scale(1) translateY(0); }
+  .modal-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--accent); margin-bottom: 2px; }
+  .modal-sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+
+  .size-row { margin-bottom: 16px; display: none; }
+  .size-row.show { display: block; }
+  .size-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px; }
+  .size-opts { display: flex; flex-wrap: wrap; gap: 7px; }
+  .size-opt {
+    padding: 6px 13px; border: 2px solid var(--border);
+    border-radius: 8px; background: transparent; color: var(--text);
+    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 12px;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .size-opt:hover, .size-opt.sel { border-color: var(--accent); color: var(--accent); background: rgba(232,99,10,0.1); }
+
+  .qty-row { display: flex; align-items: center; margin-bottom: 16px; }
+  .qty-lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+  .qty-ctrl { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+  .qty-btn {
+    width: 34px; height: 34px; border-radius: 9px;
+    border: 2px solid var(--accent); background: transparent; color: var(--accent);
+    font-size: 20px; font-weight: 900; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; line-height: 1;
+  }
+  .qty-btn:hover { background: var(--accent); color: white; }
+  .qty-num { font-size: 20px; font-weight: 900; min-width: 28px; text-align: center; }
+
+  .modal-total { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+  .modal-total strong { color: var(--text); font-size: 17px; }
+
+  .modal-btns { display: flex; gap: 10px; }
+  .btn-cancel {
+    flex: 1; padding: 12px; border: 2px solid var(--border);
+    background: transparent; color: var(--muted); border-radius: 11px;
+    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 14px;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .btn-cancel:hover { border-color: var(--muted); color: var(--text); }
+  .btn-add {
+    flex: 2; padding: 12px; background: var(--accent); border: none; color: white;
+    border-radius: 11px; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 14px;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .btn-add:hover { background: var(--accent2); transform: scale(1.02); }
+
+  /* CART PANEL */
+  .cart-panel {
+    position: fixed; right: -420px; top: 0;
+    width: 400px; height: 100vh;
+    background: #111; border-left: 2px solid var(--accent);
+    z-index: 300; display: flex; flex-direction: column;
+    transition: right 0.3s ease;
+    box-shadow: -8px 0 40px rgba(0,0,0,0.5);
+  }
+  .cart-panel.open { right: 0; }
+  .cart-head {
+    padding: 18px 22px; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-shrink: 0;
+  }
+  .cart-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--accent); }
+  .cart-close {
+    background: var(--border); border: none; color: var(--text);
+    width: 34px; height: 34px; border-radius: 9px; font-size: 18px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .cart-close:hover { background: #555; }
+
+  #cartBodyWrap { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+  .cart-body { flex: 1; overflow-y: auto; padding: 14px 20px; }
+  .cart-body::-webkit-scrollbar { width: 4px; }
+  .cart-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .cart-empty { text-align: center; color: var(--muted); padding: 50px 0; }
+  .cart-empty div { font-size: 44px; margin-bottom: 10px; }
+
+  .cart-item {
+    background: var(--card); border-radius: 11px; padding: 13px;
+    margin-bottom: 9px; display: flex; align-items: center; gap: 10px;
+    animation: slideIn 0.25s ease;
+  }
+  @keyframes slideIn { from { opacity:0; transform: translateX(18px); } to { opacity:1; transform: translateX(0); } }
+  .ci-info { flex: 1; }
+  .ci-name { font-weight: 800; font-size: 13px; }
+  .ci-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .ci-price { color: var(--accent); font-weight: 900; font-size: 14px; white-space: nowrap; }
+  .ci-ctrl { display: flex; align-items: center; gap: 5px; }
+  .mini-btn {
+    width: 25px; height: 25px; border-radius: 7px;
+    border: 1.5px solid var(--border); background: transparent; color: var(--text);
+    font-size: 15px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; line-height: 1;
+  }
+  .mini-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .mini-q { font-size: 13px; font-weight: 800; min-width: 18px; text-align: center; }
+  .rm-btn {
+    background: none; border: none; color: #e74c3c; font-size: 15px;
+    cursor: pointer; padding: 3px 5px; border-radius: 6px;
+    transition: background 0.15s; margin-left: 2px;
+  }
+  .rm-btn:hover { background: rgba(231,76,60,0.15); }
+
+  .cart-foot { padding: 16px 22px; border-top: 1px solid var(--border); flex-shrink: 0; }
+  .total-row { display: flex; justify-content: space-between; font-size: 20px; font-weight: 900; margin-bottom: 16px; }
+  .total-row span:last-child { color: var(--accent); }
+  .order-btn {
+    width: 100%; padding: 15px; background: var(--accent); border: none; color: white;
+    border-radius: 13px; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 16px;
+    cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.2s;
+  }
+  .order-btn:hover { background: var(--accent2); box-shadow: 0 6px 20px rgba(232,99,10,0.35); }
+  .order-btn:disabled { background: var(--border); cursor: not-allowed; box-shadow: none; }
+
+  .success-screen {
+    display: none; text-align: center; padding: 40px 20px;
+    flex: 1; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .success-screen.show { display: flex; }
+  .success-screen .check { font-size: 64px; margin-bottom: 14px; animation: pop 0.4s ease; }
+  @keyframes pop { from { transform: scale(0.5); } to { transform: scale(1); } }
+  .success-screen h3 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--success); letter-spacing: 2px; margin-bottom: 8px; }
+  .success-screen p { color: var(--muted); font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
+  .new-order-btn {
+    background: var(--accent); border: none; color: white;
+    padding: 12px 26px; border-radius: 11px;
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 14px;
+    cursor: pointer; transition: background 0.15s;
+  }
+  .new-order-btn:hover { background: var(--accent2); }
+
+  .toast {
+    position: fixed; bottom: 28px; left: 50%;
+    transform: translateX(-50%) translateY(70px);
+    background: var(--success); color: white;
+    padding: 11px 22px; border-radius: 11px;
+    font-weight: 800; font-size: 13px;
+    z-index: 500; transition: transform 0.3s ease;
+    white-space: nowrap; box-shadow: 0 6px 20px rgba(46,204,113,0.4);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 480px) {
+    .cart-panel { width: 100%; right: -100%; }
+    .items-grid, .items-grid-wide { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🍕 DH EATS</div>
+  <button class="cart-btn" onclick="openCart()">
+    🛒 Your Cart
+    <span class="cart-count" id="cartCount">0</span>
+  </button>
+</header>
+
+<div class="menu-area" id="menuArea"></div>
+
+<!-- Quantity Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-name" id="mName"></div>
+    <div class="modal-sub" id="mSub"></div>
+    <div class="size-row" id="sizeRow">
+      <div class="size-lbl">Choose Size / Pack</div>
+      <div class="size-opts" id="sizeOpts"></div>
+    </div>
+    <div class="qty-row">
+      <span class="qty-lbl">Quantity</span>
+      <div class="qty-ctrl">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <span class="qty-num" id="qtyNum">1</span>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+    </div>
+    <div class="modal-total">Total: <strong>Rs. <span id="mTotal">0</span></strong></div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-add" onclick="confirmAdd()">Add to Cart 🛒</button>
+    </div>
+  </div>
 </div>
 
-<div class="card">
-<h3>Chicken Fajita Pizza</h3>
-<p>Regular Flavor</p>
-<p class="price">S 490 | M 950 | L 1250 | XL 1550</p>
+<!-- Cart Panel -->
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-head">
+    <span class="cart-title">🛒 Your Cart</span>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div id="cartBodyWrap">
+    <div class="cart-body" id="cartBody"></div>
+    <div class="cart-foot" id="cartFoot">
+      <div class="total-row"><span>Total</span><span id="cartTotal">Rs. 0</span></div>
+      <button class="order-btn" id="orderBtn" onclick="placeOrder()" disabled>Send Order 🚀</button>
+    </div>
+  </div>
+  <div class="success-screen" id="successScreen">
+    <div class="check">✅</div>
+    <h3>Order Placed!</h3>
+    <p>Your order has been received.<br>We'll have it ready soon!</p>
+    <button class="new-order-btn" onclick="resetOrder()">Order More</button>
+  </div>
 </div>
 
-<div class="card">
-<h3>Chicken Supreme Pizza</h3>
-<p class="price">S 490 | M 950 | L 1250 | XL 1550</p>
-</div>
+<div class="toast" id="toast"></div>
 
-<div class="card">
-<h3>Veggie Lover Pizza</h3>
-<p class="price">S 490 | M 950 | L 1250 | XL 1550</p>
-</div>
+<script>
+// ── MENU DATA ──────────────────────────────────────────────
+const MENU = [
+  {
+    section: "🍕 Pizzas",
+    gridClass: "items-grid",
+    items: [
+      { id:"p1", name:"Chicken Tikka Pizza",    sub:"Regular Flavor", sizes:{ S:490, M:950, L:1250, XL:1550 } },
+      { id:"p2", name:"Chicken Fajita Pizza",   sub:"Regular Flavor", sizes:{ S:490, M:950, L:1250, XL:1550 } },
+      { id:"p3", name:"Chicken Supreme Pizza",  sub:"",               sizes:{ S:490, M:950, L:1250, XL:1550 } },
+      { id:"p4", name:"Veggie Lover Pizza",     sub:"",               sizes:{ S:490, M:950, L:1250, XL:1550 } },
+      { id:"p5", name:"Cheese Lover Pizza",     sub:"",               sizes:{ S:490, M:950, L:1250, XL:1550 } },
+      { id:"p6", name:"Special Pizzas",         sub:"Splitz'a 1600 | Real American 1450–1750 | DH Special 1400–1700", price:1400 },
+    ]
+  },
+  {
+    section: "🍔 Burgers & Sides",
+    gridClass: "items-grid",
+    items: [
+      { id:"b1", name:"Zinger Burger",        sub:"", price:320 },
+      { id:"b2", name:"Fillet Burger",         sub:"", price:300 },
+      { id:"b3", name:"Chapli Burger",         sub:"", price:260 },
+      { id:"b4", name:"DH Special Burger",     sub:"", price:520 },
+      { id:"b5", name:"Double Decker Burgers", sub:"", price:570 },
+    ]
+  },
+  {
+    section: "🍗 Wings & Nuggets",
+    gridClass: "items-grid",
+    items: [
+      { id:"w1", name:"Oven Baked Wings", sub:"5 PCS = 250 | 10 PCS = 450", packs:{"5 PCS":250,"10 PCS":450} },
+      { id:"w2", name:"Honey Wings",      sub:"5 PCS = 280 | 10 PCS = 540", packs:{"5 PCS":280,"10 PCS":540} },
+      { id:"w3", name:"Peri Peri Wings",  sub:"5 PCS = 260 | 10 PCS = 450", packs:{"5 PCS":260,"10 PCS":450} },
+      { id:"w4", name:"Nuggets",          sub:"5 PCS = 250 | 10 PCS = 450", packs:{"5 PCS":250,"10 PCS":450} },
+      { id:"w5", name:"Popcorn Chicken",  sub:"",                            packs:{"15 PCS":550} },
+    ]
+  },
+  {
+    section: "⭐ Value Deals",
+    gridClass: "items-grid-wide",
+    items: [
+      { id:"d1", name:"Deal 1",           sub:"1 Zinger + Fries + Drink",        price:500  },
+      { id:"d3", name:"Deal 3",           sub:"Med Pizza + Wings + Drink",        price:1470 },
+      { id:"db", name:"Birthday Deal 🎂", sub:"3 Large Pizzas + Wings + Drinks",  price:5250 },
+    ]
+  },
+  {
+    section: "🥤 Extras & Drinks",
+    gridClass: "items-grid-wide",
+    items: [
+      { id:"e1", name:"Dips",    sub:"Sauce 70 | Peri Peri 80 | BBQ 80",         packs:{"Sauce":70,"Peri Peri":80,"BBQ":80} },
+      { id:"e2", name:"Addons",  sub:"Jalapeno 70 | Olives 100",                  packs:{"Jalapeno":70,"Olives":100} },
+      { id:"e3", name:"Drinks",  sub:"Tin 129 | 1L 170 | 1.5L 210 | 2.25L 280",  packs:{"Tin":129,"1L":170,"1.5L":210,"2.25L":280} },
+    ]
+  }
+];
 
-<div class="card">
-<h3>Cheese Lover Pizza</h3>
-<p class="price">S 490 | M 950 | L 1250 | XL 1550</p>
-</div>
+// ── STATE ──────────────────────────────────────────────────
+let cart = [];
+let modal = { item:null, qty:1, selectedKey:null };
 
-<div class="card">
-<h3>Special Pizzas</h3>
-<p>Splitz’a 1600 | Real American 1450-1750 | DH Special 1400-1700</p>
-</div>
+// ── RENDER MENU ────────────────────────────────────────────
+function renderMenu() {
+  const area = document.getElementById("menuArea");
+  MENU.forEach(sec => {
+    const secEl = document.createElement("div");
+    secEl.className = "section";
+    secEl.innerHTML = `<div class="section-title">${sec.section}</div>`;
+    const grid = document.createElement("div");
+    grid.className = sec.gridClass;
+    sec.items.forEach(item => grid.appendChild(buildCard(item)));
+    secEl.appendChild(grid);
+    area.appendChild(secEl);
+  });
+}
 
-</div>
-</div>
+function buildCard(item) {
+  const card = document.createElement("div");
+  card.className = "item-card";
+  card.onclick = () => openModal(item);
+
+  let priceStr = "";
+  if (item.sizes) {
+    priceStr = "S 490 | M 950 | L 1250 | XL 1550";
+  } else if (item.packs) {
+    const entries = Object.entries(item.packs);
+    if (entries.length === 1) {
+      priceStr = `<span style="color:var(--accent2);font-size:15px;font-weight:900">${entries[0][0]} = ${entries[0][1]}</span>`;
+    } else {
+      priceStr = entries.map(([k,v]) => `${k} = ${v}`).join(" | ");
+    }
+  } else {
+    priceStr = item.price;
+  }
+
+  card.innerHTML = `
+    <div class="plus-icon">+</div>
+    <div class="item-name">${item.name}</div>
+    ${item.sub ? `<div class="item-subtitle">${item.sub}</div>` : ""}
+    <div class="item-price">${priceStr}</div>
+  `;
+  return card;
+}
+
+// ── MODAL ──────────────────────────────────────────────────
+function openModal(item) {
+  modal.item = item;
+  modal.qty = 1;
+  modal.selectedKey = null;
+
+  document.getElementById("mName").textContent = item.name;
+  document.getElementById("mSub").textContent = item.sub || "";
+
+  const sizeRow = document.getElementById("sizeRow");
+  const sizeOpts = document.getElementById("sizeOpts");
+  sizeOpts.innerHTML = "";
+
+  const prices = item.sizes || item.packs;
+  if (prices) {
+    sizeRow.classList.add("show");
+    Object.entries(prices).forEach(([key, val], i) => {
+      const btn = document.createElement("button");
+      btn.className = "size-opt" + (i === 0 ? " sel" : "");
+      btn.textContent = `${key} — Rs.${val}`;
+      btn.onclick = () => {
+        document.querySelectorAll(".size-opt").forEach(b => b.classList.remove("sel"));
+        btn.classList.add("sel");
+        modal.selectedKey = key;
+        updateModalTotal();
+      };
+      sizeOpts.appendChild(btn);
+      if (i === 0) modal.selectedKey = key;
+    });
+  } else {
+    sizeRow.classList.remove("show");
+  }
+
+  document.getElementById("qtyNum").textContent = 1;
+  updateModalTotal();
+  document.getElementById("modalOverlay").classList.add("active");
+}
+
+function getUnitPrice() {
+  const item = modal.item;
+  if (!item) return 0;
+  if (item.sizes && modal.selectedKey) return item.sizes[modal.selectedKey];
+  if (item.packs && modal.selectedKey) return item.packs[modal.selectedKey];
+  return item.price || 0;
+}
+
+function updateModalTotal() {
+  document.getElementById("mTotal").textContent = getUnitPrice() * modal.qty;
+}
+
+function changeQty(delta) {
+  modal.qty = Math.max(1, modal.qty + delta);
+  document.getElementById("qtyNum").textContent = modal.qty;
+  updateModalTotal();
+}
+
+function closeModal() {
+  document.getElementById("modalOverlay").classList.remove("active");
+}
+
+document.getElementById("modalOverlay").addEventListener("click", function(e) {
+  if (e.target === this) closeModal();
+});
+
+function confirmAdd() {
+  const item = modal.item;
+  const unitPrice = getUnitPrice();
+  const label = modal.selectedKey || "";
+  const key = item.id + (label ? "_" + label : "");
+
+  const existing = cart.find(c => c.key === key);
+  if (existing) {
+    existing.qty += modal.qty;
+  } else {
+    cart.push({ key, id:item.id, name:item.name, label, price:unitPrice, qty:modal.qty });
+  }
+
+  closeModal();
+  renderCart();
+  showToast(`✅ ${item.name}${label ? " ("+label+")" : ""} added to cart!`);
+}
+
+// ── CART ───────────────────────────────────────────────────
+function renderCart() {
+  const body = document.getElementById("cartBody");
+  const totalItems = cart.reduce((s,c) => s + c.qty, 0);
+  document.getElementById("cartCount").textContent = totalItems;
+
+  const orderBtn = document.getElementById("orderBtn");
+
+  if (cart.length === 0) {
+    body.innerHTML = `<div class="cart-empty"><div>🛒</div><p>Your cart is empty.<br>Add some items!</p></div>`;
+    document.getElementById("cartTotal").textContent = "Rs. 0";
+    orderBtn.disabled = true;
+    return;
+  }
+
+  orderBtn.disabled = false;
+  let grandTotal = 0;
+  body.innerHTML = "";
+
+  cart.forEach((c, i) => {
+    const lineTotal = c.price * c.qty;
+    grandTotal += lineTotal;
+    const div = document.createElement("div");
+    div.className = "cart-item";
+    div.innerHTML = `
+      <div class="ci-info">
+        <div class="ci-name">${c.name}</div>
+        <div class="ci-meta">${c.label ? c.label+" · " : ""}Rs.${c.price} each</div>
+      </div>
+      <div class="ci-ctrl">
+        <button class="mini-btn" onclick="cartQty(${i},-1)">−</button>
+        <span class="mini-q">${c.qty}</span>
+        <button class="mini-btn" onclick="cartQty(${i},1)">+</button>
+      </div>
+      <div class="ci-price">Rs.${lineTotal}</div>
+      <button class="rm-btn" onclick="removeItem(${i})" title="Remove">🗑</button>
+    `;
+    body.appendChild(div);
+  });
+
+  document.getElementById("cartTotal").textContent = `Rs. ${grandTotal}`;
+}
+
+function cartQty(idx, delta) {
+  cart[idx].qty = Math.max(1, cart[idx].qty + delta);
+  renderCart();
+}
+
+function removeItem(idx) {
+  cart.splice(idx, 1);
+  renderCart();
+}
+
+function openCart() {
+  document.getElementById("cartPanel").classList.add("open");
+  renderCart();
+}
+function closeCart() {
+  document.getElementById("cartPanel").classList.remove("open");
+}
+
+function placeOrder() {
+  document.getElementById("cartBodyWrap").style.display = "none";
+  document.getElementById("successScreen").classList.add("show");
+}
+
+function resetOrder() {
+  cart = [];
+  document.getElementById("cartCount").textContent = "0";
+  document.getElementById("successScreen").classList.remove("show");
+  document.getElementById("cartBodyWrap").style.display = "";
+  renderCart();
+}
+
+// ── TOAST ──────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2400);
+}
+
+renderMenu();
+</script>
+</body>
+</html>
 
 
-<!-- BURGERS -->
-<div class="category">
-<h2>🍔 Burgers & Sides</h2>
-
-<div class="menu-grid">
-
-<div class="card">
-<h3>Zinger Burger</h3>
-<p class="price">320</p>
-</div>
-
-<div class="card">
-<h3>Fillet Burger</h3>
-<p class="price">300</p>
-</div>
-
-<div class="card">
-<h3>Chapli Burger</h3>
-<p class="price">260</p>
-</div>
-
-<div class="card">
-<h3>DH Special Burger</h3>
-<p class="price">520</p>
-</div>
-
-<div class="card">
-<h3>Double Decker Burgers</h3>
-<p class="price">570</p>
-</div>
-
-</div>
-</div>
-
-
-<!-- WINGS -->
-<div class="category">
-<h2>🍗 Wings & Nuggets</h2>
-
-<div class="menu-grid">
-
-<div class="card">
-<h3>Oven Baked Wings</h3>
-<p>5 PCS = 250 | 10 PCS = 450</p>
-</div>
-
-<div class="card">
-<h3>Honey Wings</h3>
-<p>5 PCS = 280 | 10 PCS = 540</p>
-</div>
-
-<div class="card">
-<h3>Peri Peri Wings</h3>
-<p>5 PCS = 260 | 10 PCS = 450</p>
-</div>
-
-<div class="card">
-<h3>Nuggets</h3>
-<p>5 PCS = 250 | 10 PCS = 450</p>
-</div>
-
-<div class="card">
-<h3>Popcorn Chicken</h3>
-<p class="price">15 PCS = 550</p>
-</div>
-
-</div>
-</div>
-
-
-<!-- DEALS -->
-<div class="category">
-<h2>💥 Value Deals</h2>
-
-<div class="menu-grid">
-
-<div class="card">
-<h3>Deal 1</h3>
-<p>1 Zinger + Fries + Drink</p>
-<p class="price">500</p>
-</div>
-
-<div class="card">
-<h3>Deal 3</h3>
-<p>Med Pizza + Wings + Drink</p>
-<p class="price">1470</p>
-</div>
-
-<div class="card">
-<h3>Birthday Deal 🎂</h3>
-<p>3 Large Pizzas + Wings + Drinks</p>
-<p class="price">5250</p>
-</div>
-
-</div>
-</div>
-
-
-<!-- EXTRAS -->
-<div class="category">
-<h2>🥤 Extras & Drinks</h2>
-
-<div class="menu-grid">
-
-<div class="card">
-<h3>Dips</h3>
-<p>Sauce 70 | Peri Peri 80 | BBQ 80</p>
-</div>
-
-<div class="card">
-<h3>Addons</h3>
-<p>Jalapeno 70 | Olives 100</p>
-</div>
-
-<div class="card">
-<h3>Drinks</h3>
-<p>Tin 129 | 1L 170 | 1.5L 210 | 2.25L 280</p>
-</div>
-
-</div>
-</div>
 
 </section>
-<div id="cart" onclick="sendOrder()">🛒 View Order</div>
+
 
 <footer>
 © 2026 Dine Hut. All Rights Reserved.
@@ -752,6 +1176,7 @@ function sendOrder(){
 
 </script>
 </html>
+
 
 
 
