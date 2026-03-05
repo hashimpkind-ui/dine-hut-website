@@ -615,60 +615,7 @@ cursor:pointer;
 
 <script>
 // ── MENU DATA ──────────────────────────────────────────────
-const MENU = [
-  {
-    section: "🍕 Pizzas",
-    gridClass: "items-grid",
-    items: [
-      { id:"p1", name:"Chicken Tikka Pizza",    sub:"Regular Flavor", sizes:{ S:490, M:950, L:1250, XL:1550 } },
-      { id:"p2", name:"Chicken Fajita Pizza",   sub:"Regular Flavor", sizes:{ S:490, M:950, L:1250, XL:1550 } },
-      { id:"p3", name:"Chicken Supreme Pizza",  sub:"",               sizes:{ S:490, M:950, L:1250, XL:1550 } },
-      { id:"p4", name:"Veggie Lover Pizza",     sub:"",               sizes:{ S:490, M:950, L:1250, XL:1550 } },
-      { id:"p5", name:"Cheese Lover Pizza",     sub:"",               sizes:{ S:490, M:950, L:1250, XL:1550 } },
-      { id:"p6", name:"Special Pizzas",         sub:"Splitz'a 1600 | Real American 1450–1750 | DH Special 1400–1700", price:1400 },
-    ]
-  },
-  {
-    section: "🍔 Burgers & Sides",
-    gridClass: "items-grid",
-    items: [
-      { id:"b1", name:"Zinger Burger",        sub:"", price:320 },
-      { id:"b2", name:"Fillet Burger",         sub:"", price:300 },
-      { id:"b3", name:"Chapli Burger",         sub:"", price:260 },
-      { id:"b4", name:"DH Special Burger",     sub:"", price:520 },
-      { id:"b5", name:"Double Decker Burgers", sub:"", price:570 },
-    ]
-  },
-  {
-    section: "🍗 Wings & Nuggets",
-    gridClass: "items-grid",
-    items: [
-      { id:"w1", name:"Oven Baked Wings", sub:"5 PCS = 250 | 10 PCS = 450", packs:{"5 PCS":250,"10 PCS":450} },
-      { id:"w2", name:"Honey Wings",      sub:"5 PCS = 280 | 10 PCS = 540", packs:{"5 PCS":280,"10 PCS":540} },
-      { id:"w3", name:"Peri Peri Wings",  sub:"5 PCS = 260 | 10 PCS = 450", packs:{"5 PCS":260,"10 PCS":450} },
-      { id:"w4", name:"Nuggets",          sub:"5 PCS = 250 | 10 PCS = 450", packs:{"5 PCS":250,"10 PCS":450} },
-      { id:"w5", name:"Popcorn Chicken",  sub:"",                            packs:{"15 PCS":550} },
-    ]
-  },
-  {
-    section: "⭐ Value Deals",
-    gridClass: "items-grid-wide",
-    items: [
-      { id:"d1", name:"Deal 1",           sub:"1 Zinger + Fries + Drink",        price:500  },
-      { id:"d3", name:"Deal 3",           sub:"Med Pizza + Wings + Drink",        price:1470 },
-      { id:"db", name:"Birthday Deal 🎂", sub:"3 Large Pizzas + Wings + Drinks",  price:5250 },
-    ]
-  },
-  {
-    section: "🥤 Extras & Drinks",
-    gridClass: "items-grid-wide",
-    items: [
-      { id:"e1", name:"Dips",    sub:"Sauce 70 | Peri Peri 80 | BBQ 80",         packs:{"Sauce":70,"Peri Peri":80,"BBQ":80} },
-      { id:"e2", name:"Addons",  sub:"Jalapeno 70 | Olives 100",                  packs:{"Jalapeno":70,"Olives":100} },
-      { id:"e3", name:"Drinks",  sub:"Tin 129 | 1L 170 | 1.5L 210 | 2.25L 280",  packs:{"Tin":129,"1L":170,"1.5L":210,"2.25L":280} },
-    ]
-  }
-];
+
 
 // ── STATE ──────────────────────────────────────────────────
 let cart = [];
@@ -1176,6 +1123,7 @@ function sendOrder(){
 
 </script>
 </html>
+
 
 
 
